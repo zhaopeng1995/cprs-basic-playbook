@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /usr/local/nginx-{{nginx_version}}
+
+./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/nginx --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module   --with-http_stub_status_module
+
+make && make install
+

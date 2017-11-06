@@ -1,9 +1,9 @@
 [nfs-server]
-192.168.100.103 ansible_connection=local
+192.168.100.101 ansible_connection=local
 [nfs-client]
 192.168.100.102
 [nfs:children]
 nfs-client
 nfs-server
 [nginx]
-192.168.100.10[2-3]
+192.168.100.10[1:2]

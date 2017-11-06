@@ -1,21 +1,21 @@
 ---
 # play_book for  nfs
 
-- hosts: nfs-server
-  remote_user: root
-  become: yes
-  become_method: sudo
+# - hosts: nfs-server
+#   remote_user: root
+#   become: yes
+#   become_method: sudo
 
-  roles:
-    - nfs-server
+#   roles:
+#     - nfs-server
 
-- hosts: nfs-client
-  remote_user: root
-  become: yes
-  become_method: sudo
+# - hosts: nfs-client
+#   remote_user: root
+#   become: yes
+#   become_method: sudo
 
-  roles:
-    - nfs-client
+#   roles:
+#     - nfs-client
 
 - hosts: nginx
   remote_user: root
