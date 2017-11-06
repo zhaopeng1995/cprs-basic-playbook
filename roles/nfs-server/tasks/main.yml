@@ -1,0 +1,10 @@
+---
+# install nfs for Centos/RHEL version 6
+- name: make {{ server_mount_dir }} for mount
+  file: path={{ server_mount_dir }} owner={{ deploy_user }} mode=0755 state=directory
+- name: yum install nfs-utils  rpcbind
+  yum: name=nfs-utils,rpcbind state=latest
+  when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
+- name: Configure /etc/exports
+  template: src=exports.j2 dest=/etc/exports
+  notify: exportfs 

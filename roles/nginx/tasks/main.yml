@@ -1,0 +1,3 @@
+---
+- include: install.yml  #安装nginx
+# - include: file.yml     #创建基本目录，像/var/www/html这样，有时候不一定要用，但是一定得有，不然就报错了

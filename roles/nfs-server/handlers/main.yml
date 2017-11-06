@@ -1,0 +1,8 @@
+---
+- name: exportfs
+  shell: exportfs -rv
+  tags: reload_nfs
+
+- name: start_nfs
+  service: name=nfs state=started
+  tags: start_nfs

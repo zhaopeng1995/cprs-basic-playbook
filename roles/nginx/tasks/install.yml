@@ -1,0 +1,19 @@
+---
+- name: 判断nginx是否已经安装
+  stat: path={{ nginx_dir }}
+  register: reg_nginx
+- name: copy nginx
+  unarchive: src=nginx-{{nginx_version}}}.tar.gz dest=/usr/local
+  when: not reg_nginx.stat.exists
+
+- name: 安装nginx依赖包[zlib-devel pcre-devel openssl-devel]
+  yum: name={{ item }} state=latest
+  with_items:
+  - zlib-devel
+  - pcre-devel
+  - openssl-devel
+
+- name: 安装nginx
+  shell: ./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/nginx --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module   --with-http_stub_status_module
+  args:   chdir=/usr/local/nginx-${{nginx_version}} 
+  

@@ -1,0 +1,36 @@
+---
+# play_book for  nfs
+
+- hosts: nfs-server
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - nfs-server
+
+- hosts: nfs-client
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - nfs-client
+
+- hosts: nginx
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - nginx
+#   - tomcat
+
+# - hosts: nginx
+#   remote_user: root
+#   become: yes
+#   become_method: sudo
+
+#   roles:
+#     - nfs
+#     - tomcat
