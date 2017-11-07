@@ -34,3 +34,19 @@
 #   roles:
 #     - nfs
 #     - tomcat
+
+- hosts: memcached
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - memcached
+
+- hosts: redis
+  remote_user: root
+  become: yes
+  become_method: sudo
+
+  roles:
+    - redis
