@@ -17,13 +17,13 @@
 #   roles:
 #     - nfs-client
 
-- hosts: nginx
-  remote_user: root
-  become: yes
-  become_method: sudo
-
-  roles:
-    - nginx
+#- hosts: nginx
+#  remote_user: root
+#  become: yes
+#  become_method: sudo
+#
+#  roles:
+#    - nginx
 #   - tomcat
 
 # - hosts: nginx
