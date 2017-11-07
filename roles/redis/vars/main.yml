@@ -4,7 +4,6 @@ env:
  RUNLEVEL: 1
 
 redhat_pkg:
-  - epel-release
   - libselinux-python
   - redis
 

@@ -1,5 +1,10 @@
 ---
 
+- name: Install the epel-release packages
+  yum: name={{ item }} state=present
+  with_items: "epel-release"
+  when: ansible_os_family == "RedHat"
+
 - name: Install the Redis packages
   yum: name={{ item }} state=present
   with_items: "{{redhat_pkg}}"
