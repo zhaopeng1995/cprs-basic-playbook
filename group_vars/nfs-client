@@ -1,3 +1,3 @@
-client_share_dir : /share
-server_mount_dir : /share
-server_ip : 192.168.100.103
+client_share_dir : /data
+server_mount_dir : /data
+server_ip : 172.19.237.79

@@ -2,6 +2,6 @@
 
 port: 11211
 max_conn: 1024
-cache_size: 64
+cache_size: 512
 fs_file_max: 756024
 

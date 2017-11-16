@@ -1,5 +1,5 @@
 ---
-- name: exportfs
+- name: reload_nfs
   shell: exportfs -rv
   tags: reload_nfs
 

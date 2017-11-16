@@ -1,2 +1,2 @@
-dir : /share
-deploy_user : cprs
+dir : /data
+deploy_user : emall

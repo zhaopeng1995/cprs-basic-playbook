@@ -1,17 +1,17 @@
 ---
 # install nfs for Centos/RHEL version 6
-- name: mkdir dir exsits
+- name: 检测目录是否存在
   shell: ls {{ client_share_dir }}
   ignore_errors: True
   register: is_dir
 
-- name: make directory when not exsits
+- name: 如果不存在则创建
   file: path={{ client_share_dir }} owner={{ deploy_user }} mode=0755 state=directory
   when: is_dir | failed
 
-- name: yum install nfs-utils  rpcbind
+- name: 安装 nfs
   yum: name=nfs-utils,rpcbind state=latest
   when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
 
-- name: mount remote server
+- name: 挂载服务端
   mount: fstype=nfs name={{ client_share_dir }} src={{server_ip}}:{{server_mount_dir}} state=mounted

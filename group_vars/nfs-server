@@ -1,3 +1,3 @@
 white_list : '*'
-dir_privileges : rw,sync,root_squash
-server_mount_dir : /share
+dir_privileges : rw,async,no_root_squash
+server_mount_dir : /data

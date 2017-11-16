@@ -1,4 +1,4 @@
-## ansible-playbook 一键部署基础服务
+## ansible-playbook 一键部署cprs产品
 
 - 需要 Ansible 1.2 或者 更高的版本
 - Expects CentOS/RHEL 6.x hosts
