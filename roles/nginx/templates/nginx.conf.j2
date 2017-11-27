@@ -24,10 +24,13 @@ http {
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  logs/access.log  main;
+    #gzip 
     gzip on;
     gzip_min_length 1100;
     gzip_buffers 4 8k;
-    gzip_types text/plain;
+    gzip_types  text/plain application/x-javascript application/javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary on;
+
     output_buffers 1 32k;
     postpone_output 1460;
     client_header_buffer_size 1k;
@@ -41,7 +44,6 @@ http {
     #keepalive_timeout  0;
     keepalive_timeout  65;
 
-    #gzip  on;
 
 upstream eclp {
     server 10.253.114.226:8075;
