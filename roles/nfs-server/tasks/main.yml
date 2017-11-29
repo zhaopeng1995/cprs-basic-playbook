@@ -1,16 +1,16 @@
 ---
 # install nfs for Centos/RHEL version 6
 - name: make {{ server_mount_dir }} for mount
-  file: path={{ server_mount_dir }} owner={{ deploy_user }} mode=0755 state=directory
+  file: path={{ server_mount_dir }} owner={{ dir_owner }} mode=0755 state=directory
 - name: 安装nfs服务端
   yum: name=nfs-utils,rpcbind state=latest
   when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
 
 - name: 启动rpcbind
-  service: name=rpcbind state=started
+  service: name=rpcbind state=started enabled=true
 
 - name: 启动nfs
-  service: name=nfs state=started
+  service: name=nfs state=started  enabled=true
   
 - name: Configure /etc/exports
   template: src=exports.j2 dest=/etc/exports

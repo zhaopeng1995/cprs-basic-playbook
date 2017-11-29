@@ -1,3 +1,4 @@
 white_list : '*'
 dir_privileges : rw,async,no_root_squash
 server_mount_dir : /data
+dir_owner : emall

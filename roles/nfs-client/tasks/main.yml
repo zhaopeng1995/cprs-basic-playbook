@@ -6,7 +6,7 @@
   register: is_dir
 
 - name: 如果不存在则创建
-  file: path={{ client_share_dir }} owner={{ deploy_user }} mode=0755 state=directory
+  file: path={{ client_share_dir }} owner={{ dir_owner }} mode=0755 state=directory
   when: is_dir | failed
 
 - name: 安装 nfs
