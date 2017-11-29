@@ -1,6 +1,9 @@
 ---
 - name: reload_nginx
-  shell: "/usr/local/nginx/sbin/nginx -s reload"
+  shell: "service nginx reload"
+
+- name: restart_nginx
+  shell: "service nginx restart"
   
 - name: start_nginx
-  shell: "/usr/local/nginx/sbin/nginx"
+  shell: "service nginx start"

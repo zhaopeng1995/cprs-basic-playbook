@@ -7,7 +7,8 @@
 nfs-client
 nfs-server
 [nginx]
-172.19.237.80
+192.168.100.101
+192.168.100.102
 [keepalived-master]
 192.168.100.101
 [keepalived-slave]

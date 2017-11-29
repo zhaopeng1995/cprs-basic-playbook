@@ -1,30 +1,37 @@
 ---
-# play_book for  nfs
+# play_book for  basic
 
- - hosts: nfs-server
+ - hosts: keepalived-master
    remote_user: root
    become: yes
    become_method: sudo
-
+   gather_facts: no
    roles:
-     - nfs-server
+     - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
 
- - hosts: nfs-client
+ - hosts: keepalived-slave
    remote_user: root
    become: yes
    become_method: sudo
-
+   gather_facts: no
    roles:
-     - nfs-client
+     - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
+
+#  - hosts: nfs-client
+#    remote_user: root
+#    become: yes
+#    become_method: sudo
+
+#    roles:
+#      - nfs-client
 
  - hosts: nginx
    remote_user: root
    become: yes
    become_method: sudo
-
+   gather_facts: no
    roles:
      - nginx
-#   - tomcat
 
 # - hosts: nginx
 #   remote_user: root
@@ -35,13 +42,13 @@
 #     - nfs
 #     - tomcat
 
- - hosts: memcached
-   remote_user: root
-   become: yes
-   become_method: sudo
+#  - hosts: memcached
+#    remote_user: root
+#    become: yes
+#    become_method: sudo
 
-   roles:
-     - memcached
+#    roles:
+#      - memcached
 
 #- hosts: redis
 #  remote_user: root

@@ -2,14 +2,14 @@
   - name: install keeepalived package
     yum : name=keepalived  state=latest
   - name: copy script to remote
-    copy: src=nginx_pid.sh  dest=/usr/local/scripts/nginx_pid.sh
+    template: src=nginx_pid.sh  dest=/usr/local/scripts/ mode=774
   - name: configure keepalived on master
     template: src=keepalived-master.conf dest=/etc/keepalived/keepalived.conf
-    when: "host='keepalived-master'"
+    when: "keepalived_node=='master'"
     notify: restart keepalived
   - name: configure keepalived on slave
     template: src=keepalived-slave.conf dest=/etc/keepalived/keepalived.conf
-    when: "host='keepalived-slave'"
+    when: "keepalived_node=='slave'"
     notify: restart keepalived
   - name: start keepalived service
     service: name=keepalived state=started enabled=yes
