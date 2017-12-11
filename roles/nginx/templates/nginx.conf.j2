@@ -44,20 +44,31 @@ http {
     #keepalive_timeout  0;
     keepalive_timeout  65;
 
-
-upstream eclp {
-    server 10.253.114.226:8075;
+##  upstream start
+{% for nginx_server in nginx_servers %}
+{% if nginx_server.useBackend %}
+upstream {{nginx_server.backends_name}} {
+{% for backend in nginx_server.backends %}
+    server {{backend.ip_address}}:{{ backend.port }} {{backend.parameters}};
+{% endfor %}
 }
+{% endif %}
+{% endfor %}
+##  upstream end
 
+## server start
+{% for nginx_server in nginx_servers %}
+
+## {{nginx_server.backends_name}}
 server {
-    listen       {{nginx_port}};
-    server_name  {{nginx_server_name}};
+    listen       {{nginx_server.listenPort}};
+    server_name  {{nginx_server.name}};
     location / {
         proxy_redirect off;
         proxy_set_header Host $host;
         proxy_set_header X_Real_IP $remote_addr;
         proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_pass http://eclp;
+        proxy_pass http://{{nginx_server.backends_name}};
 	}
 	 error_page   500 502 503 504  /50x.html;
        	 location = /50x.html {
@@ -66,5 +77,6 @@ server {
         	
 }
 
-
+{% endfor %}
+## server end
 }

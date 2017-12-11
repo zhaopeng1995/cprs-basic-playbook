@@ -1,21 +1,21 @@
 ---
 # play_book for  basic
 
- - hosts: keepalived-master
-   remote_user: root
-   become: yes
-   become_method: sudo
-   gather_facts: no
-   roles:
-     - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
+#  - hosts: keepalived-master
+#    remote_user: root
+#    become: yes
+#    become_method: sudo
+#    gather_facts: no
+#    roles:
+#      - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
 
- - hosts: keepalived-slave
-   remote_user: root
-   become: yes
-   become_method: sudo
-   gather_facts: no
-   roles:
-     - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
+#  - hosts: keepalived-slave
+#    remote_user: root
+#    become: yes
+#    become_method: sudo
+#    gather_facts: no
+#    roles:
+#      - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
 
 #  - hosts: nfs-client
 #    remote_user: root

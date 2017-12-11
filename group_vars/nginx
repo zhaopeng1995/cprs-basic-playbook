@@ -2,7 +2,6 @@ nginx_version:  1.12.2
 nginx_user: root
 nginx_port: 80
 nginx_basedir: /usr/local/nginx
-nginx_server_name:  eclp.cprs.uat
 nginx_worker_processes: auto
 nginx_error_log: logs/error.log
 nginx_pid_path: logs/nginx.pid
