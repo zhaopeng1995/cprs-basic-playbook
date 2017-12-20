@@ -4,14 +4,14 @@
 # date   : 2017/11/06 
 #######################################################################
 #   description:                                                      #
-#     1. this script used for install ansible and batch sshkey        #
-#     2. run this scripts in root prileges                            #
+#     1. this script used for installing ansible and batching sshkey  #
+#     2. run this scripts in root privilege                           #
 #     3. you need to have a host file named                           #
 #        $cat ip_list.txt                                             #
 #        192.168.100.1                                                #
 #        192.168.100.2                                                #
-#     4. the root'passworwd of all the machines must be same          #
-# ##########################################################233########
+#     4. the remote user'passworwd of all the machines must be same   #
+############################################################233########
 
 
 function info(){
@@ -42,11 +42,14 @@ case $is_batch_ssh_key  in
 
 		# batch ssh_key
 		info " batching the ssh key..."
-		read -s -p "Please input the root's password : "  password
+		read -s -p "Please input the remote user's name : "  remote_user
+		echo ""
+		[[ -z $remote_user ]] && error "empty remote user input" && exit 3
+		read -s -p "Please input the $remote_user's password : "  password
 		echo ""
 		read -s -p "Confirm your passowrd : "  password_2
 		echo ""
-		[[ -z $password ]] && [ -z $password_2 ] && error "empty input"  && exit 3
+		[[ -z $password ]] && [ -z $password_2 ] && error "empty password input"  && exit 3
 		[[  $password != $password_2 ]] && error " password not consistent!" && exit 3
 		read -p "Input the host file (./ip_list.txt):" hostfile
 		[ -z $hostfile ] &&  hostfile="./ip_list.txt"
@@ -59,7 +62,7 @@ case $is_batch_ssh_key  in
 		echo " host file:"  $hostfile
 		echo " key file :" $key_file 
 		info "start batch_ssh_key ....."
-		user=root
+		user=$remote_user
 		for ip in $(cat $hostfile)
 		do   
 			expect -c "
@@ -72,12 +75,10 @@ case $is_batch_ssh_key  in
 			}
 			" 
 		done
-		info "batch ssh key done"
+
 	;;
 	no )
 		info "select  no , passing"  && exit 0
 	;;
 esac  
-
-
-
+echo "done!"

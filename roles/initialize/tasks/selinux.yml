@@ -1,0 +1,9 @@
+---
+- name: "selinux: 安装libselinux-python"
+  yum:  name=libselinux-python  state=present
+  when : (ansible_distribution == "CentOS" and ansible_distribution_major_version|int == 6)
+- name: "selinux: disable selinux"
+  selinux: state=disabled
+  when : (ansible_distribution == "CentOS" and ansible_distribution_major_version|int == 6)
+
+  

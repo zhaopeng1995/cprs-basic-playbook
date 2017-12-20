@@ -1,0 +1,4 @@
+---
+- include: selinux.yml  #配置selinux
+- include: timezone.yml     #配置timezone
+- include: ulimit.yml #配置ulimit
