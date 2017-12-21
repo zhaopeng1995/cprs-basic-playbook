@@ -1,0 +1,29 @@
+---
+- name: "pkg: 安装常用yum模块"
+  yum:  name={{ item }} state=latest
+  with_items:
+    - gcc
+    - make
+    - readline
+    - nc
+    - net-tools
+    - wget
+    - curl
+    - lrzsz
+    - expect
+    - zip
+    - unzip
+    - tcpdump
+    - htop
+    - lsof
+    - nmap
+    - ntp
+    - tree
+    - vim
+    - sudo
+    - man
+    - dstat
+
+  when : (ansible_distribution == "CentOS" and ansible_distribution_major_version|int == 6)
+
+  
