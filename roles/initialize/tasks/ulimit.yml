@@ -3,48 +3,47 @@
     dest=/etc/security/limits.conf
     regexp="^# Ansible changes."
     line="# Ansible changes."
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 - name: change soft nofile in  /etc/security/limits.conf
   lineinfile:
     dest=/etc/security/limits.conf
     regexp="^\* soft nofile"
     line="* soft nofile {{ ulimit_num | default('65536') }}"
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 - name: change soft nproc in  /etc/security/limits.conf
   lineinfile:
     dest=/etc/security/limits.conf
     regexp="^\* soft nproc"
     line="* soft nproc {{ ulimit_num | default('65536') }}"
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 
-- name: change hard /etc/security/limits.conf
+- name: change hard nofile /etc/security/limits.conf
   lineinfile:
     dest=/etc/security/limits.conf
     regexp="^\* hard nofile"
     line="* hard nofile {{ ulimit_num | default('65536') }}"
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 - name: change hard nproc /etc/security/limits.conf
   lineinfile:
     dest=/etc/security/limits.conf
     regexp="^\* hard nproc"
     line="* hard nproc {{ ulimit_num | default('65536') }}"
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 - name: check /etc/security/limits.d/90-nproc.conf 
   stat: path=/etc/security/limits.d/90-nproc.conf
   register: nproc_90_file
-  tags: [ulimit]
+  tags: [initialize,ulimit]
 
 - name: modify /etc/security/limits.d/90-nproc.conf
-  lineinfile:
-    dest=/etc/security/limits.conf
+  lineinfile:vim t
+    dest=/etc/security/limits.d/90-nproc.conf
     regexp="^\*.*1024"
-    line="*  soft  nproc  ulimited"
+    line="*       soft    nproc     unlimited"
     backrefs=yes
   when: nproc_90_file.stat.md5 is defined
-  tags: [ulimit]
-  
+  tags: [initialize,ulimit]

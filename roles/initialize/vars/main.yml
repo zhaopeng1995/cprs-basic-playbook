@@ -1,3 +1,4 @@
 ---
-zonename : Asia/Shanghai
+ntp_timezone : Asia/Shanghai
 ulimit_num : 65535
+installed_package: [gcc,make,readline,nc,net-tools,wget,curl,lrzsz,expect,zip,unzip,tcpdump,htop,lsof,nmap,tree,vim,sudo,man,dstat]
