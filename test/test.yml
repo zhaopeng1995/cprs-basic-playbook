@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  roles:
+    - { role: ntp_server }
+
+- hosts: other
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  roles:
+    - { role: ntp_client }

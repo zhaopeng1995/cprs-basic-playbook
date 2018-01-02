@@ -1,0 +1,22 @@
+# ntp.conf by ansible
+
+driftfile  /var/log/ntp/drift
+pidfile   /var/run/ntpd.pid
+logfile /var/log/ntp/ntp.log
+
+# Access Control Support
+restrict    default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+restrict 127.0.0.1
+{{restrict}}
+
+# local clock
+server 127.127.1.0
+fudge  127.127.1.0 stratum 10
+
+
+# server
+{% for server in ntp_parent_servers %}
+server  {{server}}
+{% endfor %}
+
