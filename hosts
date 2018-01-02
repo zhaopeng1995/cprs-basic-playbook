@@ -18,3 +18,4 @@ keepalived-master
 keepalived-slave
 [redis]
 192.168.100.103 
+[ntp_server]

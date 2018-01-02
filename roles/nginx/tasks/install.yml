@@ -2,10 +2,12 @@
 - name: 判断nginx是否已经安装
   stat: path={{ nginx_basedir }}
   register: reg_nginx
+  tags: [nginx]
   
 - name: copy nginx
   unarchive: src=nginx-{{nginx_version}}.tar.gz dest=/tmp
   when: not reg_nginx.stat.exists
+  tags: [nginx]
 
 - name: 安装nginx依赖包[zlib-devel pcre-devel openssl-devel]
   yum: name={{ item }} state=latest
@@ -15,13 +17,16 @@
   - openssl-devel
   - gcc
   when: not reg_nginx.stat.exists
+  tags: [nginx]
 
 - name: 上传nginx安装脚本
   template: src=install.sh.j2 dest=/tmp/install.sh owner=root group=root mode=777
   when: not reg_nginx.stat.exists
+  tags: [nginx]
 
 - name: 安装nginx
   shell:  /bin/bash /tmp/install.sh
   when: not reg_nginx.stat.exists
+  tags: [nginx]
 
 
