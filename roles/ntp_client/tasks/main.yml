@@ -18,7 +18,7 @@
   tags: [ntp_server]
 
 - name: "ntpdate 同步时钟源"
-  command: "ntpdate {{ item }} "
+  shell: "ntpdate {{ item }}  &&  hwclock -w "
   with_items: "{{ ntp_parent_servers }}"
   tags: [ntp_server]
 
