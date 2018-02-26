@@ -1,11 +1,11 @@
 ---
-- hosts: localhost
-  remote_user: root
-  become: yes
-  become_method: sudo
-  gather_facts: yes
-  roles:
-    - ntp_server 
+# - hosts: localhost
+#   remote_user: root
+#   become: yes
+#   become_method: sudo
+#   gather_facts: yes
+#   roles:
+#     - { role: initialize }
 
 - hosts: other
   remote_user: root
@@ -13,4 +13,4 @@
   become_method: sudo
   gather_facts: yes
   roles:
-    - ntp_client 
+    - { role: memcached }

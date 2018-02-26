@@ -40,7 +40,7 @@
   tags: [initialize,ulimit]
 
 - name: modify /etc/security/limits.d/90-nproc.conf
-  lineinfile:vim t
+  lineinfile:
     dest=/etc/security/limits.d/90-nproc.conf
     regexp="^\*.*1024"
     line="*       soft    nproc     unlimited"

@@ -14,4 +14,4 @@
   when: "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'"
 
 - name: 挂载服务端
-  mount: fstype=nfs name={{ client_share_dir }} src={{server_ip}}:{{server_mount_dir}} state=mounted
+  mount: fstype=nfs path={{ client_share_dir }} src={{server_ip}}:{{server_mount_dir}} state=mounted

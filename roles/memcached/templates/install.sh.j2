@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /tmp/memcached-{{memcached_version}}
+
+./configure --prefix={{memcached_basedir}} 
+
+make && make install
+

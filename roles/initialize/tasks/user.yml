@@ -1,0 +1,10 @@
+---
+- name: "user: 创建用户"
+  user:  name={{ item.name }} uid={{ item.uid }} 
+  with_items: "{{ users }}"
+  tags: [initialize,user]
+
+- name: "user: 修改密码"
+  shell: " echo {{ item.name }}:{{ item.passwd }}|chpasswd "
+  with_items: "{{ users }}"
+  tags: [initialize,user]

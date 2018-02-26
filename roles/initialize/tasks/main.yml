@@ -1,5 +1,5 @@
 ---
 - include: selinux.yml  #配置selinux
-- include: ntp.yml     #配置ntp
 - include: ulimit.yml #配置ulimit
 - include: pkg.yml #配置常用yum模块
+- include: user.yml # 创建初始用户

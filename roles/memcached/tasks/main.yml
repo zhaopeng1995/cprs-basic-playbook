@@ -1,36 +1,69 @@
 ---
 
-- name: Install the memcached packages 
-  yum: name={{ item }} state=present
-  with_items: "{{redhat_pkgs}}"
-  when: ansible_os_family == "RedHat"
+- name: 卸载原有yum安装的memcached
+  yum: name=memcached state=absent
+
+- name: 判断memcached是否已经通过编译安装
+  stat: path={{ memcached_basedir }}
+  register: reg_memcached
+  ignore_errors: yes
+  tags: [memcached]
+  
+- name: copy memcached
+  unarchive: src=memcached-{{memcached_version}}.tar.gz dest=/tmp
+  when: not reg_memcached.stat.exists
   tags: [memcached]
 
-- name: Install the memcached packages 
-  apt: name={{ item }} state=present update_cache=yes
-  with_items: "{{ubuntu_pkgs}}"
-  environment: env
-  when: ansible_os_family == "Debian"
+- name: 安装memcached依赖包
+  yum: name={{item}} state=latest
+  with_items: [ libevent, libevent-devel, gcc, make, libselinux-python ]      
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: 上传memcached安装脚本
+  template: src=install.sh.j2 dest=/tmp/memcached_install.sh owner=root group=root mode=777
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: 安装memcached
+  shell:  /bin/bash /tmp/memcached_install.sh
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: 创建memcached系统用户
+  user: name={{user}} system=yes shell=/sbin/nologin home={{memcached_basedir}}
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: 创建目录
+  file: path={{pid_file_path}} owner={{user}} state=directory mode=0755
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: 创建软链接
+  file: src={{memcached_basedir}}/bin/memcached dest=/usr/bin/memcached owner={{user}} state=link 
+  when: not reg_memcached.stat.exists
+  tags: [memcached]
+
+- name: Copy the init script
+  template: src=memcached_initd.j2 dest=/etc/init.d/memcached mode=0755
+  when: not reg_memcached.stat.exists
   tags: [memcached]
 
 - name: Copy the client configuration file 
-  template: src=memcached_redhat.j2 dest=/etc/sysconfig/memcached
+  template: src=memcached_redhat.j2 dest=/etc/sysconfig/memcached mode=0755
+  when: not reg_memcached.stat.exists
   notify: 
    - restart memcached
-  when: ansible_os_family == "RedHat"
-  tags: [memcached]
-
-- name: Copy the client configuration file 
-  template: src=memcached_debian.j2 dest=/etc/memcached.conf
-  notify: restart memcached
-  when: ansible_os_family == "Debian"
   tags: [memcached]
 
 - name: Set the max open file descriptors 
   sysctl: name=fs.file-max value={{ fs_file_max }} state=present
+  when: not reg_memcached.stat.exists
   tags: [memcached]
 
 - name: start the memcached service
   service: name=memcached state=started enabled=yes
+  when: not reg_memcached.stat.exists
   tags: [memcached]
 

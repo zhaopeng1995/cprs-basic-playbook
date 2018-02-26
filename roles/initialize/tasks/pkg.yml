@@ -1,5 +1,5 @@
 ---
-- name: "pkg: 安装常用yum模块"
+- name: "pkg: yum安装常用软件包"
   yum:  name={{ item }} state=latest
   with_items: "{{ installed_package }}"
 
