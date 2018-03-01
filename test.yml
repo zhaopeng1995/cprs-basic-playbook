@@ -13,4 +13,4 @@
   become_method: sudo
   gather_facts: yes
   roles:
-    - { role: memcached }
+    - { role: oracle-java }
