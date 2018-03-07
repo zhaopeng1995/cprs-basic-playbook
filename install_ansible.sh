@@ -42,7 +42,7 @@ case $is_batch_ssh_key  in
 
 		# batch ssh_key
 		info " batching the ssh key..."
-		read -s -p "Please input the remote user's name : "  remote_user
+		read  -p "Please input the remote user's name : "  remote_user
 		echo ""
 		[[ -z $remote_user ]] && error "empty remote user input" && exit 3
 		read -s -p "Please input the $remote_user's password : "  password
