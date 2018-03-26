@@ -35,6 +35,7 @@
 
 - name: Set the max open file descriptors 
   sysctl: name=vm.overcommit_memory value=1 state=present
+  when: ansible_product_name !=  'Alibaba Cloud ECS'
   tags: [redis]
 
 - name: start the redis service

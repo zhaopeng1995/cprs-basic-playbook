@@ -59,7 +59,7 @@
 
 - name: Set the max open file descriptors 
   sysctl: name=fs.file-max value={{ fs_file_max }} state=present
-  when: not reg_memcached.stat.exists
+  when: not reg_memcached.stat.exists and  ansible_product_name !=  'Alibaba Cloud ECS'
   tags: [memcached]
 
 - name: start the memcached service

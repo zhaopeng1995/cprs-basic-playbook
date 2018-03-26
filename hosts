@@ -6,9 +6,6 @@
 [nfs:children]
 nfs-client
 nfs-server
-[nginx]
-192.168.100.101
-192.168.100.102
 [keepalived-master]
 192.168.100.101
 [keepalived-slave]
@@ -18,4 +15,15 @@ keepalived-master
 keepalived-slave
 [redis]
 192.168.100.103 
+[nginx]
+192.168.100.101
+[memcached]
+192.168.100.101
 [ntp_server]
+192.168.100.103
+[ntp_client]
+192.168.100.101
+192.168.100.102
+[ntp:children]
+ntp_client
+ntp_server

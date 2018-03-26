@@ -1,29 +1,53 @@
 ---
 # play_book for  basic
 
-#  - hosts: keepalived-master
-#    remote_user: root
-#    become: yes
-#    become_method: sudo
-#    gather_facts: no
-#    roles:
-#      - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
+ - hosts: all
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes
+   roles:
+     - initialize
 
-#  - hosts: keepalived-slave
-#    remote_user: root
-#    become: yes
-#    become_method: sudo
-#    gather_facts: no
-#    roles:
-#      - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
+ - hosts: ntp_server
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - ntp_server
 
-#  - hosts: nfs-client
-#    remote_user: root
-#    become: yes
-#    become_method: sudo
+ - hosts: ntp_client
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - ntp_client
 
-#    roles:
-#      - nfs-client
+ - hosts: keepalived-master
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes
+   roles:
+     - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
+
+ - hosts: keepalived-slave
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes
+   roles:
+     - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
+
+ - hosts: nfs-client
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes 
+   roles:
+     - nfs-server
 
  - hosts: nginx
    remote_user: root
@@ -33,27 +57,36 @@
    roles:
      - nginx
 
-# - hosts: nginx
-#   remote_user: root
-#   become: yes
-#   become_method: sudo
+ - hosts: nfs-server
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes 
+   roles:
+     - nfs-server
 
-#   roles:
-#     - nfs
-#     - tomcat
 
-#  - hosts: memcached
-#    remote_user: root
-#    become: yes
-#    become_method: sudo
+ - hosts: memcached
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - memcached
 
-#    roles:
-#      - memcached
+ - hosts: redis
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - redis
 
-#- hosts: redis
-#  remote_user: root
-#  become: yes
-#  become_method: sudo
-#
-#  roles:
-#    - redis
+ - hosts: all
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - oracle-java
+

@@ -2,8 +2,8 @@
 # install nfs for Centos/RHEL version 6
 - name: 检测目录是否存在
   shell: ls {{ client_share_dir }}
-  ignore_errors: True
   register: is_dir
+  ignore_errors: yes
 
 - name: 如果不存在则创建
   file: path={{ client_share_dir }} owner={{ dir_owner }} mode=0755 state=directory

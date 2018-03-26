@@ -6,6 +6,41 @@
 
 	ansible-playbook -i hosts site.yml
 
+### site.yml role 配置
+
+
+``` 
+# role initialize
+
+ - hosts: localhost
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: yes
+   roles:
+    - { role: initialize }
+    - { role: nginx }
+    - { role: redis }
+    - { role: memcached }
+    - { role: nfs-client }
+    - { role: nfs-server }
+```
+
+``` 
+# role keepalived 
+
+  - hosts: keepalived-master
+    remote_user: root
+    become: yes
+    become_method: sudo
+    gather_facts: no
+    roles:
+      - { role: keepalived, vip: 192.168.100.200, keepalived_node: master  }
+      - { role: keepalived, vip: 192.168.100.200, keepalived_node: slave  }
+
+
+```
+
 
 ### 改进
 
