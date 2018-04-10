@@ -1,0 +1,6 @@
+---
+vip: 192.168.100.80
+interface: eth0
+auth_pass: test 
+nginx_sbin_path: /usr/local/nginx/sbin/nginx
+script_path: /usr/local/scripts/nginx_pid.sh

@@ -1,4 +1,13 @@
 ---
+nginx_version:  1.12.2
+nginx_user: root
+nginx_port: 80
+nginx_basedir: /usr/local/nginx
+nginx_worker_processes: auto
+nginx_error_log: logs/error.log
+nginx_pid_path: logs/nginx.pid
+worker_connections: 50000
+
 nginx_servers: 
   - name: center.cprs.uat
     listenPort: 80
