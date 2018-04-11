@@ -3,3 +3,4 @@
 - include: ulimit.yml #配置ulimit
 - include: pkg.yml #配置常用yum模块
 - include: user.yml # 创建初始用户
+- include: hostname.yml # 配置本机hostname
