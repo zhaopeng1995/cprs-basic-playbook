@@ -1,6 +1,0 @@
----
-ulimit_num : 65535
-installed_package: [gcc,make,readline,telnet,traceroute,nc,net-tools,wget,curl,lrzsz,expect,zip,unzip,tcpdump,epel-release,lsof,nmap,tree,vim,sudo,man,dstat]
-users:
-  - { name: test1, uid: 511, passwd: test1}
-  - { name: test2, uid: 512, passwd: test2}

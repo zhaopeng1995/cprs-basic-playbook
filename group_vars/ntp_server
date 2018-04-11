@@ -1,6 +1,0 @@
----
-ntp_timezone : Asia/Shanghai
-ntp_parent_servers: 
-    - cn.pool.ntp.org
-    - hk.pool.ntp.org
-restrict: "restrict 192.168.100.0 mask 255.255.255.0 nomodify notrap"

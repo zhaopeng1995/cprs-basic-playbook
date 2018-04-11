@@ -33,6 +33,11 @@
   when: ansible_os_family == "Debian"
   tags: [redis]
 
+- name: Copy the init.d scripts 
+  template: src=redis.init.j2 dest=/etc/init.d/redis
+  when: ansible_os_family == "RedHat"
+  tags: [redis]
+
 - name: Set the max open file descriptors 
   sysctl: name=vm.overcommit_memory value=1 state=present
   when: ansible_product_name !=  'Alibaba Cloud ECS'

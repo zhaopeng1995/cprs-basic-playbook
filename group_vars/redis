@@ -1,26 +1,6 @@
 ---
 bind_address: 0.0.0.0
 redis_port: 6379
-syslog_enabled: "yes"
-databases: 16
-database_save_times:
-  - [900, 1]
-  - [300, 10]
-  - [60, 10000]
-dbfilename: dump.rdb
-db_dir: /var/lib/redis
-pid_file: /var/run/redis/redis.pid
-log_file: /var/log/redis/redis.log
-redis_role: master
-requirepass: true
 redis_pass: redis@123
-max_clients: 1000
-max_memory: 1024mb
-maxmemory_policy: noeviction
-appendfsync: everysec
-# If role is slave set these values too
-master_ip: 1.1.1.1
-master_port: 6379
-master_auth: None
 
 

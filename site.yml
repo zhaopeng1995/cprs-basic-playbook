@@ -25,6 +25,13 @@
    roles:
      - ntp_client
 
+ - hosts: nginx
+   remote_user: root
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+     - nginx
  - hosts: keepalived-master
    remote_user: root
    become: yes
@@ -47,15 +54,7 @@
    become_method: sudo
    gather_facts: yes 
    roles:
-     - nfs-server
-
- - hosts: nginx
-   remote_user: root
-   become: yes
-   become_method: sudo
-   gather_facts: no
-   roles:
-     - nginx
+     - nfs-client
 
  - hosts: nfs-server
    remote_user: root

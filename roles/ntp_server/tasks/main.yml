@@ -22,6 +22,17 @@
   with_items: "{{ ntp_parent_servers }}"
   tags: [ntp_server]
 
+- name: "配置iptables，放行UDP的123端口"
+  iptables: 
+    action: insert
+    chain: INPUT
+    protocol: udp
+    match: udp
+    destination_port: 123
+    jump: ACCEPT
+    comment: ACCEPT ntp port(udp) by ansible
+    
+
 - name: "确认ntp服务启动"
   service:
     name: ntpd
