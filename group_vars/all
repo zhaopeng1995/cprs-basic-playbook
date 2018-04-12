@@ -1,2 +1,4 @@
 dir : /data
 deploy_user : emall
+ansible_user: root
+ansible_ssh_pass: 123456
