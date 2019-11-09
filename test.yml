@@ -7,10 +7,11 @@
 #   roles:
 #     - { role: initialize }
 
-- hosts: other
+- hosts: localhost
   remote_user: root
   become: yes
   become_method: sudo
   gather_facts: yes
   roles:
-    - { role: oracle-java }
+    - { role: memcached }
+    - { role: nginx }

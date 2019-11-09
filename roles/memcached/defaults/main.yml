@@ -4,8 +4,8 @@ memcached_version:  1.4.21
 memcached_basedir: /usr/local/memcached
 
 ## 配置参数
-user: memcached
-port: 11211
+mem_user: memcached
+mem_port: 11212
 max_conn: 1024
 cache_size: 512
 fs_file_max: 756024

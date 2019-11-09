@@ -1,8 +1,14 @@
 ---
-- name: 上传nginx init启动脚本
-  template: src=nginx_service.j2 dest=/etc/init.d/nginx owner=root group=root  mode=744
+- name: 上传nginx init启动脚本 - rh6
+  template: src=nginx_service_rl6.j2 dest=/etc/init.d/nginx owner=root group=root  mode=744
+  when : ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
   notify: restart_nginx
-  
+
+- name: 上传nginx init启动脚本 - rh7
+  template: src=nginx_service_rl7.j2 dest=/etc/systemd/system/nginx.service owner=root group=root  mode=744
+  when : ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
+  notify: restart_nginx
+
 - name: 配置nginx.conf
   template:  src=nginx.conf.j2  dest={{nginx_basedir}}/conf/nginx.conf backup=yes
   notify: reload_nginx

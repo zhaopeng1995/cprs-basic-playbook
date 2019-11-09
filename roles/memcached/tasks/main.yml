@@ -31,27 +31,34 @@
   tags: [memcached]
 
 - name: 创建memcached系统用户
-  user: name={{user}} system=yes shell=/sbin/nologin home={{memcached_basedir}}
+  user: name={{mem_user}} system=yes shell=/sbin/nologin home={{memcached_basedir}}
   when: not reg_memcached.stat.exists
   tags: [memcached]
 
 - name: 创建目录
-  file: path={{pid_file_path}} owner={{user}} state=directory mode=0755
+  file: path={{pid_file_path}} owner={{mem_user}} state=directory mode=0755
   when: not reg_memcached.stat.exists
   tags: [memcached]
 
 - name: 创建软链接
-  file: src={{memcached_basedir}}/bin/memcached dest=/usr/bin/memcached owner={{user}} state=link 
+  file: src={{memcached_basedir}}/bin/memcached dest=/usr/bin/memcached owner={{mem_user}} state=link 
   when: not reg_memcached.stat.exists
   tags: [memcached]
 
-- name: Copy the init script
+- name: Copy the SysVinit script on rl6
   template: src=memcached_initd.j2 dest=/etc/init.d/memcached mode=0755
-  when: not reg_memcached.stat.exists
+  when: not reg_memcached.stat.exists and ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
   tags: [memcached]
+
+
+- name: Copy the Systemd script on rl7
+  template: src=memcached_systemd.j2 dest=/etc/systemd/system/memcached.service mode=0755
+  when: not reg_memcached.stat.exists and ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7 
+  tags: [memcached]
+
 
 - name: Copy the client configuration file 
-  template: src=memcached_redhat.j2 dest=/etc/sysconfig/memcached mode=0755
+  template: src=memcached_sysconfig.j2 dest=/etc/sysconfig/memcached mode=0755
   when: not reg_memcached.stat.exists
   notify: 
    - restart memcached
@@ -59,7 +66,7 @@
 
 - name: Set the max open file descriptors 
   sysctl: name=fs.file-max value={{ fs_file_max }} state=present
-  when: not reg_memcached.stat.exists and  ansible_product_name !=  'Alibaba Cloud ECS'
+  when: not reg_memcached.stat.exists
   tags: [memcached]
 
 - name: start the memcached service

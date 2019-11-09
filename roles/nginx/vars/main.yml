@@ -24,4 +24,5 @@ nginx_servers:
   - name: uc.cprs.uat
     listenPort: 80
     useBackend: false
+    backends_name: none
 
