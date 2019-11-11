@@ -41,6 +41,10 @@ http {
     sendfile        on;
     #tcp_nopush     on;
 
+    # 隐藏nginx版本
+    server_tokens off;
+    proxy_hide_header    X-Powered-By;
+
     #keepalive_timeout  0;
     keepalive_timeout  65;
 
@@ -57,12 +61,20 @@ upstream {{nginx_server.backends_name}} {
 ##  upstream end
 
 ## server start
+
+server {  
+       listen 80 default;  
+       server_name _;  
+       return 403;  
+}
+
 {% for nginx_server in nginx_servers %}
 
-## {{nginx_server.backends_name}}
+## {{nginx_server.name}}
 server {
     listen       {{nginx_server.listenPort}};
     server_name  {{nginx_server.name}};
+    {% if nginx_server.useBackend %}
     location / {
         proxy_redirect off;
         proxy_set_header Host $host;
@@ -70,6 +82,7 @@ server {
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_pass http://{{nginx_server.backends_name}};
 	}
+    {% endif %}
 	 error_page   500 502 503 504  /50x.html;
        	 location = /50x.html {
            	 root   html;

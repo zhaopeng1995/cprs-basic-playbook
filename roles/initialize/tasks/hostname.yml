@@ -2,7 +2,7 @@
 - name: install libselinux-python
   yum: name=libselinux-python
 - name: lineinfile
-  lineinfile: dest="/etc/hosts" line="{{ansible_eth0.ipv4.address}} {{ansible_nodename}}"
+  lineinfile: dest="/etc/hosts" line="{{ansible_default_ipv4.address}} {{ansible_nodename}}"
 - name: hosts
   lineinfile: dest="/etc/hosts" line="127.0.0.1 {{ansible_nodename}}"
 
